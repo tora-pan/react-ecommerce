@@ -1,6 +1,5 @@
-import { clearItemFromCart } from "./cart.actions";
 import CartActionTypes from "./cart.types";
-import { addItemToCart } from "./cart.utils";
+import { addItemToCart, removeItemFromCart } from "./cart.utils";
 
 const INITIAL_STATE = {
   hidden: true,
@@ -20,6 +19,14 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         //add all curent cart items and then add on the new ones at the end.
         cartItems: addItemToCart(state.cartItems, action.payload),
       };
+
+    case CartActionTypes.REMOVE_ITEM:
+      return {
+        ...state,
+        //remove an item from the cart if above 0 else remove
+        cartItems: removeItemFromCart(state.cartItems, action.payload),
+      };
+
     case CartActionTypes.CLEAR_ITEM_FROM_CART:
       return {
         ...state,
